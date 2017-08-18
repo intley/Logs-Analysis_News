@@ -22,6 +22,7 @@ This project aims to provide practice interacting with a live database with over
 #### Launching Vagrant:
 1. To launch vagrant, navigate to the fullstack-nanodegree-vm folder and inside this folder, VagrantFile.
 2. Once you are in the VagrantFile directory, you can start the virtual machine using the command:
-```vagrant up
 ```
-3.
+vagrant up
+```
+3. 
