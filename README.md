@@ -49,7 +49,7 @@ You can now run PostgreSQL queries on this database.
 #### PostgreSQL Documentation:
 The Documentation for PostgreSQL can be found [here](https://www.postgresql.org/docs/9.6/static/index.html).
 
-### Tables within the Database:
+## Tables within the Database:
 There are three tables within the News Database:
 1. articles
 2. authors
@@ -60,7 +60,7 @@ You can use the following command to know the contents of a table:
 \d table_name
 ```
 
-### Creating Views:
+## Creating Views:
 1. This View was created to compute the top three-most popular articles on the basis of views:
 ```
 CREATE VIEW top_three_articles AS
