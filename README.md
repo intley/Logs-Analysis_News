@@ -25,4 +25,59 @@ This project aims to provide practice interacting with a live database with over
 ```
 vagrant up
 ```
-3. 
+3. Proceed to launch the VM using the following command:
+```
+vagrant ssh
+```
+And now change directory to the vagrant folder:
+```
+cd /vagrant
+```
+4. You should have the newsdata.sql file in this folder. You may check using the ls command. If the file is not present, move the file into this folder.
+
+#### Loading the Database:
+1. Load the News Database using the following command:
+```
+psql -d -f newsdata.sql
+```
+2. Use the following command to connect to the database:
+```
+psql -d news
+```
+You can now run PostgreSQL queries on this database.
+
+#### PostgreSQL Documentation:
+The Documentation for PostgreSQL can be found [here](https://www.postgresql.org/docs/9.6/static/index.html).
+
+### Tables within the Database:
+There are three tables within the News Database:
+1. articles
+2. authors
+3. log
+
+You can use the following command to know the contents of a table:
+```
+\d table_name
+```
+
+### Creating Views:
+1. This View was created to compute the top three-most popular articles on the basis of views:
+```
+CREATE VIEW top_three_articles AS
+SELECT a.title AS title, count(*) AS views
+FROM articles AS a, log AS l
+WHERE l.path LIKE CONCAT('%', a.slug)
+GROUP BY a.title
+ORDER BY views DESC
+LIMIT 3;
+```
+
+2. This view was created to compute the most popular authors of all time based on the number of views for the articles written by them:
+```
+CREATE VIEW top_authors AS
+SELECT au.name AS name, count(*) AS views
+FROM articles AS a, log AS l, authors AS au
+WHERE au.id=a.author AND l.path LIKE CONCAT('%', a.slug)
+GROUP BY name
+ORDER BY views DESC;
+```
