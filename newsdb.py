@@ -27,7 +27,7 @@ def run_query():
     ans1 = c.fetchall()
     for(title, views) in ans1:
         print("\n {}    -   {}".format(title, views))
-    print("_" * 75)
+    print("-" * 75)
 
     # Question 2
     print(question2)
@@ -39,7 +39,7 @@ def run_query():
     ans2 = c.fetchall()
     for(name, views) in ans2:
         print("\n {}    -   {}".format(name, views))
-    print("_" * 75)
+    print("-" * 75)
 
     # Question 3
     print(question3)
@@ -52,7 +52,7 @@ def run_query():
     ans3 = c.fetchall()
     for(date, percent) in ans3:
         print("\n {}    -   {}".format(date, percent))
-    print("_" * 75)
+    print("-" * 75)
 
     # Closing DB Connection
     db.close()

@@ -57,7 +57,7 @@ There are three tables within the News Database:
 
 You can use the following command to know the contents of a table:
 ```
-\d table_name
+\d tablename
 ```
 
 ## Creating Views:
