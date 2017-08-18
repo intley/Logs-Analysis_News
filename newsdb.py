@@ -1,4 +1,5 @@
-# Database Code running queries on the News Database
+#!/usr/bin/env python3
+
 import psycopg2
 
 DBNAME = "news"
@@ -8,10 +9,12 @@ question2 = "Who are the most popular article authors of all time?"
 question3 = "On which days did more than 1 percent of requests lead to errors?"
 
 
-def run_query():
-    """This function connects to the news database and runs the three
-    queries to display the details for the questions asked.
+def top_articles():
     """
+    This function connects to the news database and computes the query
+    to find the three most popular articles.
+    """
+
     # Connects to the news database and creates a cursor
     db = psycopg2.connect(database=DBNAME)
     c = db.cursor()
@@ -29,6 +32,20 @@ def run_query():
         print("\n {}    -   {}".format(title, views))
     print("-" * 75)
 
+    # Closing DB Connection
+    db.close()
+
+
+def top_authors():
+    """
+    This function connects to the news database and computes the query
+    to find the authors with the most popular articles.
+    """
+
+    # Connects to the news database and creates a cursor
+    db = psycopg2.connect(database=DBNAME)
+    c = db.cursor()
+
     # Question 2
     print(question2)
     query2 = """
@@ -40,6 +57,20 @@ def run_query():
     for(name, views) in ans2:
         print("\n {}    -   {}".format(name, views))
     print("-" * 75)
+
+    # Closing DB Connection
+    db.close()
+
+
+def error_rate():
+    """
+    This function connects to the news database and computes the query to
+    find the date where the error rate is greater than 1 percent.
+    """
+
+    # Connects to the news database and creates a cursor
+    db = psycopg2.connect(database=DBNAME)
+    c = db.cursor()
 
     # Question 3
     print(question3)
@@ -57,4 +88,8 @@ def run_query():
     # Closing DB Connection
     db.close()
 
-run_query()
+
+if __name__ == "__main__":
+    top_articles()
+    top_authors()
+    error_rate()
