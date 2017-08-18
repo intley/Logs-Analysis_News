@@ -72,7 +72,7 @@ ORDER BY views DESC
 LIMIT 3;
 ```
 
-2. This view was created to compute the most popular authors of all time based on the number of views for the articles written by them:
+2. This View was created to compute the most popular authors of all time based on the number of views for the articles written by them:
 ```
 CREATE VIEW top_authors AS
 SELECT au.name AS name, count(*) AS views
@@ -80,4 +80,42 @@ FROM articles AS a, log AS l, authors AS au
 WHERE au.id=a.author AND l.path LIKE CONCAT('%', a.slug)
 GROUP BY name
 ORDER BY views DESC;
+```
+
+3. This View was created to compute the total requests grouped by a given date:
+```
+CREATE VIEW total_requests AS
+SELECT time::date AS date, count(*) AS views
+FROM log
+GROUP BY date
+ORDER BY date;
+```
+
+4. This View was created to compute the error requests grouped by a given date:
+```
+CREATE VIEW error_requests AS
+SELECT time::date AS date, count(*) AS views
+FROM log
+WHERE status!= '200 OK'
+GROUP BY date
+ORDER BY date;
+```
+
+5. This view was created to compute the error percent for a given date in the log.
+```
+CREATE VIEW error_rate AS
+SELECT tr.date, (100.0*er.views/tr.views) AS percent
+FROM total_requests as tr, error_requests as er
+WHERE tr.date=er.date
+ORDER BY tr.date;
+```
+
+#### Running the python file to view results of the queries:
+The python file can be run in Python version-2 or version-3 as follows:
+```
+python3 newsdb.py
+```  
+OR
+```
+python2 newsdb.py
 ```
